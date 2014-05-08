@@ -4,7 +4,6 @@ import groovy.util.logging.*
 import org.joda.time.*
 import org.springframework.integration.file.tail.OSDelegatingFileTailingMessageProducer
 
-@Grab("org.springframework.integration:spring-integration-java-dsl:1.0.0.BUILD-SNAPSHOT")
 @Grab("joda-time:joda-time:2.3")
 @Slf4j
 @Configuration
