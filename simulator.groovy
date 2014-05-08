@@ -1,7 +1,9 @@
 package com.greglturnquist.springmonitor
 
+import groovy.util.logging.*
+
 @EnableScheduling
-@Log
+@Slf4j
 class LightningData {
 
     @Scheduled(fixedRate = 5000L)
@@ -12,7 +14,7 @@ class LightningData {
 }
 
 @EnableScheduling
-@Log
+@Slf4j
 class WeatherForecast {
 
     @Scheduled(fixedRate = 3000L)
