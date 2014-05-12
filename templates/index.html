@@ -8,10 +8,6 @@
         var stompClient = null;
 
         function setConnected(connected) {
-            document.getElementById('connect').disabled = connected;
-            document.getElementById('disconnect').disabled = !connected;
-            document.getElementById('messages').style.visibility = connected ? 'visible' : 'hidden';
-            document.getElementById('response').innerHTML = '';
         }
 
         function connect() {
@@ -27,33 +23,43 @@
             });
         }
 
-        function disconnect() {
-            stompClient.disconnect();
-            setConnected(false);
-            console.log("Disconnected");
-        }
-
         function showMessage(message) {
-            var response = document.getElementById('response');
-            var p = document.createElement('p');
-            p.style.wordWrap = 'break-word';
-            p.appendChild(document.createTextNode(message.severity));
-            p.appendChild(document.createTextNode(message.description))
-            response.appendChild(p);
+            document.querySelector('#response td[data-field="severity"]').textContent = message.severity;
+            document.querySelector('#response td[data-field="description"]').textContent = message.description;
+            if (message.severity === 'GOOD') {
+                response.className = 'good';
+            } else if (message.severity === 'BAD') {
+                response.className = 'bad';
+            } else {
+                response.className = '';
+            }
         }
     </script>
+    <style>
+        .good {
+            background-color: black;
+            color: #76EE00;
+        }
+        .bad {
+            background-color: black;
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
     Javascript and reload this page!</h2></noscript>
 <div>
-    <div>
-        <button id="connect" onclick="connect();">Connect</button>
-        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
-    </div>
     <div id="messages">
-        <p id="response"></p>
+        <table>
+            <tr id="response">
+                <td data-field="severity"></td><td data-field="description"></td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>
+<script>
+    connect();
+</script>
 </html>

@@ -65,7 +65,7 @@ class MonitorService implements SchedulingConfigurer {
             template.convertAndSend("/topic/status", new Alarm([severity: "GOOD", description: status]))
         }
     }
-    
+   
     @Override
     void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.taskScheduler = this.taskScheduler
