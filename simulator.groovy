@@ -8,7 +8,7 @@ class LightningData {
 
     @Scheduled(fixedRate = 5000L)
     void buzz() {
-        log.info("Activity...")
+        log.info("Simulated activity...")
     }
     
 }
@@ -19,7 +19,7 @@ class WeatherForecast {
 
     @Scheduled(fixedRate = 3000L)
     void buzz() {
-        log.info("Activity...")
+        log.info("Simulated activity...")
     }
     
 }
