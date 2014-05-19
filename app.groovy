@@ -8,25 +8,41 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.TaskScheduler
 import org.springframework.messaging.simp.SimpMessagingTemplate
+import org.springframework.integration.cloudfoundry.CloudFoundryLogMonitor
 
 @Grab("joda-time:joda-time:2.3")
+@Grab("org.springframework.integration:spring-integration-cf:0.1.0.BUILD-SNAPSHOT")
 @Slf4j
 @Configuration
 @EnableIntegrationPatterns
 class Monitor {
 
+    String email = "gturnquist@gopivotal.com"
+    String password = "Delta1143"
+    String org = "FrameworksAndRuntimes"
+    String space = "development"
+    String app = "gturnquist-simulator"
+
+    //@Bean
+    //OSDelegatingFileTailingMessageProducer tailer() {
+    //    def tailer = new OSDelegatingFileTailingMessageProducer()
+    //    tailer.file = new File('sim.log')
+    //    tailer.outputChannel = tailChannel()
+    //    tailer
+    //}
+
     @Bean
-    OSDelegatingFileTailingMessageProducer tailer() {
-        def tailer = new OSDelegatingFileTailingMessageProducer()
-        tailer.file = new File('sim.log')
+    CloudFoundryLogMonitor tailer() {
+        def tailer = new CloudFoundryLogMonitor(email, password, org, space, app)
         tailer.outputChannel = tailChannel()
         tailer
-    }
+    }        
     
     @Bean
     MessageChannel tailChannel() {
         new DirectChannel()
     }
+    
     
 }
 
@@ -46,12 +62,13 @@ class MonitorService implements SchedulingConfigurer {
 
     @ServiceActivator(inputChannel = "tailChannel")
     void handle(String data) {
-        if (data.contains("LightningData")) {
-            latest = new DateTime(Date.parse("yyyy-MM-dd HH:mm:ss.SSS", data[0..22]))
-        }
+        log.info("Got ${data}")
+        //if (data.contains("LightningData")) {
+        //    latest = new DateTime(Date.parse("yyyy-MM-dd HH:mm:ss.SSS", data[0..22]))
+        //}
     }
     
-    @Scheduled(fixedRate = 5000L)
+    //@Scheduled(fixedRate = 5000L)
     void check() {
         def now = new DateTime()
         def duration = new Duration(latest, now)
@@ -85,6 +102,7 @@ class HomeController {
 }
 
 class Alarm {
+    String category
     String severity
     String description
 }
