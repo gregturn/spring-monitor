@@ -12,7 +12,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 @Grab("joda-time:joda-time:2.3")
 @Slf4j
 @Configuration
-@EnableIntegrationPatterns
 class Monitor {
 
     @Bean
