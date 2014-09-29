@@ -1,1 +1,3 @@
 See http://bit.ly/app-mgmt-tools-with-boot for a webinar that demonstrates this app.
+
+image::http://i.ytimg.com/vi/j3rrqOV68ik/mqdefault.jpg[]
