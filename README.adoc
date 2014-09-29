@@ -1,3 +1,4 @@
-See http://bit.ly/app-mgmt-tools-with-boot for a webinar that demonstrates this app.
+You can see a webinar demonstrating this code!
 
-image::http://i.ytimg.com/vi/j3rrqOV68ik/mqdefault.jpg[]
+http://bit.ly/app-mgmt-tools-with-boot[image:http://i.ytimg.com/vi/j3rrqOV68ik/mqdefault.jpg[float="right"]]
+
